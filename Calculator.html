@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dining Calculator</title>
+</head>
+<body>
+<h1>Dining Calculator</h1>
+<form action="">
+    <label for="subtotal">Subtotal:</label><br>
+    <input type="text" id="subtotal" name="Subtotal"><br>
+    <label for="gratuity">Gratuity Rate(%):</label><br>
+    <input type="text" id="gratuity" name="Gratuity"><br><br>
+    <!--type = number excludes decimals-->
+    <input type="button" onclick="loadDoc()" name="Submit"></input>
+</form>
+<script>
+    function loadDoc() {
+        var ajax = new XMLHttpRequest();
+        ajax.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("demo").innerHTML = this.responseText;
+            }
+        };
+        ajax.open("POST", "calculate.php", true);
+        ajax.send();
+    }
+</script>
+</body>
+</html>
