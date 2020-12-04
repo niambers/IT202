@@ -2,29 +2,84 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dining Calculator</title>
+    <title>Title</title>
+    <style>
+    body{
+        font-size: 20px;
+    }
+    input[type=text], select {
+    width: 100%;
+    padding: 20px;
+    display: inline-block;
+    box-sizing: border-box;
+    }
+
+    input[type=submit] {
+    width: 100%;
+    background-color: grey;
+    color: white;
+    padding: 20px;
+    border-radius: 4px;
+    font-size: 20px;
+    }
+
+    div {
+    border-radius: 5px;
+    background-color: bisque;
+    padding: 20px;
+    }
+    </style>
 </head>
 <body>
-<h1>Dining Calculator</h1>
-<form action="">
-    <label for="subtotal">Subtotal:</label><br>
-    <input type="text" id="subtotal" name="Subtotal"><br>
-    <label for="gratuity">Gratuity Rate(%):</label><br>
-    <input type="text" id="gratuity" name="Gratuity"><br><br>
-    <!--type = number excludes decimals-->
-    <input type="button" onclick="loadDoc()" name="Submit"></input>
-</form>
+<div>
+    <h1>Gratuity Calculator</h1>
+    <form id="form" onsubmit="return false;">
+        <label for="sub">Subtotal:</label><br>
+        <input type="text" id="sub" name="Subtotal"><br>
+        <label for="rate">Gratuity Rate(%):</label><br>
+        <input type="text" id="rate" name="Gratuity"><br><br>
+        <!--type = number excludes decimals-->
+        <input type="submit" onclick="results();" />
+    </form>
+    <div id='ajaxDiv'></div>
+</div>
 <script>
-    function loadDoc() {
-        var ajax = new XMLHttpRequest();
-        ajax.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("demo").innerHTML = this.responseText;
+    //It doesn't work....
+    function results(){
+        var ajax=new XMLHttpRequest();
+        ajax.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                var sub = document.getElementById("sub").value;
+                var rate = document.getElementById("rate").value;
             }
-        };
-        ajax.open("POST", "calculate.php", true);
+        }
+        ajax.open("POST","calculate.php?q=",true);
         ajax.send();
     }
+    /*
+    function ajaxObj( meth , url )
+    {
+        var x = new XMLHttpRequest();
+        x.open(meth , url , true);
+        return x;
+    }
+    function ajaxReturn(x)
+    {
+        if(x.readyState == 4 && x.status == 200)
+        {
+            return true;
+        }
+    }
+    function ajax_post(){
+        var ajax = ajaxObj("POST","calculate.php");
+        ajax.onreadystatechange=function() {
+            if (this.readyState==4 && this.status==200) {
+                var sub = document.getElementById("sub").value;
+                var rate = document.getElementById("rate").value;
+            }
+        }
+        ajax.send();
+    }*/
 </script>
 </body>
 </html>
